@@ -71,6 +71,24 @@ syn region markdownCode matchgroup=markdownCodeDelimiter start="^\s*\zs```\s*.*$
 syn match markdownEscape "\\[][\\`*_{}()#+.!-]"
 syn match markdownError "\w\@<=_\w\@="
 
+" fold region for headings
+syn region mkdHeaderFold
+    \ start="^\s*\z(#\+\)"
+    \ skip="^\s*\z1#\+"
+    \ end="^\(\s*#\)\@="
+    \ fold contains=TOP
+
+" fold region for lists
+syn region mkdListFold
+    \ start="^\z(\s*\)\*\z(\s*\)"
+    \ skip="^\z1 \z2\s*[^#]"
+    \ end="^\(.\)\@="
+    \ fold contains=TOP
+
+syn sync fromstart
+setlocal foldmethod=syntax
+setlocal nofoldenable
+
 hi def link markdownH1                    htmlH1
 hi def link markdownH2                    htmlH2
 hi def link markdownH3                    htmlH3
